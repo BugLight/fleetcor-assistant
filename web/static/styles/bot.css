@@ -2,10 +2,10 @@
 	height: 450px;
 	width: 360px;
 	background-color: #d0d1d5;
-	border-radius: 10px;
+	border-radius: 4px;
 	position: relative;
 	border: 3px solid;
-	border-color: #c83737;
+	border-color: #ec2933;
 }
 
 .bot {
@@ -17,10 +17,11 @@
 
 .bot_header {
 	width: 100%;
-	background-color: #c83737;
+	background-color: #ec2933;
 	color: #ffffff;
 	height: 50px;
 	vertical-align: center;
+	position: absolute;
 }
 
 .user_field input {
@@ -30,8 +31,9 @@
 	right: 9px;
 	width: 88%;
 	height: 40px;
+	font-size: 18px;
 	background-color: white;
-	border-radius: 10px;
+	border-radius: 4px;
 	padding-left: 10px;
 	padding-right: 10px;
 }
