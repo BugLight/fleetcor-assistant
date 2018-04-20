@@ -10,7 +10,7 @@ export default {
     components: {
         'app-menu-button': app_menu_button,
         'app-header': app_header,
-        'app-menu': app_menu,
+        'app-menu': app_menu,        
         'app-content': app_content,
         'app-footer': app_footer
     },
@@ -24,5 +24,10 @@ export default {
                 <app-footer />
             </div>
         );
+    },
+    methods: {
+        setMenuVisible: function(show) {
+            this.menu.visible = show;
+        }
     }
 };
