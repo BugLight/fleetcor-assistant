@@ -14,4 +14,7 @@ def create_app():
 
     migrate = Migrate(app, db)
 
+    from accounts.app.accounts import accounts
+    app.register_blueprint(accounts, url_prefix='/accounts')
+
     return app
