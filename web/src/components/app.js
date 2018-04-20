@@ -23,6 +23,11 @@ export default {
             menuVisible: false
         };
     },
+    data: function() {
+        return {
+            menuVisible: false
+        };
+    },
     render(h) {
         return (
             <div id="app">
