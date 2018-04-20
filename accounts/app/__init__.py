@@ -17,4 +17,7 @@ def create_app():
     from accounts.app.accounts import accounts
     app.register_blueprint(accounts, url_prefix='/accounts')
 
+    from accounts.app.bills import bills
+    app.register_blueprint(bills, url_prefix='/bills')
+
     return app
