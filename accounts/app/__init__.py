@@ -21,4 +21,7 @@ def create_app():
     from accounts.app.app_error import process_error
     app.register_error_handler(404, process_error)
 
+    from accounts.app.bills import bills
+    app.register_blueprint(bills, url_prefix='/bills')
+
     return app
