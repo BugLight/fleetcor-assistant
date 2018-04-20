@@ -1,9 +1,13 @@
+import profile_link from './profile-link'
+
 export default {
+    components: {
+      'profile-link': profile_link
+    },
     render (h) {
       return <header class="header">
         <span class="logo">FLEETCOR</span>
-
-        <h1 class="username">{"@username"}</h1>
+        <profile-link user={this.$store.state.currentUser}/>
       </header>
     }
 };

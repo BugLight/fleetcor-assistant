@@ -10,3 +10,16 @@
   color: white;
   z-index: 1;
 }
+
+.user__photo{
+  padding: 5px;
+  width: 150px;
+}
+
+a {
+  color: #333;
+}
+
+.user{
+  
+}
