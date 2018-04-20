@@ -16,7 +16,7 @@ class Bill(db.Model):
 	balance = db.Column(db.Float)
 	account_id = db.Column(db.Integer, db.ForeignKey('account.id'))
 	account = db.relationship('Account',
-		backref=db.backref('accounts', lazy=True))
+		backref=db.backref('bills', lazy=True))
 
 	def __repr__(self):
 		return '<Bill %r>' % self.balance
