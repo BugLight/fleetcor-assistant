@@ -1,9 +1,22 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
 .header {
-    margin: 0px;
-    top: 0px;
-    position: fixed;
-    color: white;
-    z-index: 1;
-};
+  margin: 0px;
+  top: 0px;
+  position: fixed;
+  color: white;
+  z-index: 1;
+}
+
+.user__photo{
+  padding: 5px;
+  width: 150px;
+}
+
+a {
+  color: #333;
+}
+
+.user{
+  
+}
