@@ -10,9 +10,8 @@ export default {
     components: {
         'app-menu-button': app_menu_button,
         'app-header': app_header,
-        'app-menu': app_menu,        
-        'app-content': app_content,
-        'app-footer': app_footer
+        'app-menu': app_menu,
+        'app-content': app_conten
     },
     render(h) {
         return (
@@ -20,8 +19,7 @@ export default {
                 <app-menu-button />
                 <app-header />
                 <app-menu />
-                <app-content />
-                <app-footer />
+                <app-content class="app__content" />
             </div>
         );
     },
