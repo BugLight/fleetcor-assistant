@@ -31,14 +31,12 @@ export default {
     render(h) {
         return (
             <div id="app">
-                <app-header />
-                <app-menu />
-                <app-bot />
                 <app-header onMenuToggle={this.toggleMenu} />
                 <transition name="menu-slide">
                     {this.menuVisible ? <app-menu /> : null}
                 </transition>
                 <app-content class="app__content" />
+                <app-bot />
             </div>
         );
     },
