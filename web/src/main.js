@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VueRouter from 'vue-router';
 
 import app from './components/app';
 
@@ -12,6 +13,8 @@ const store = new Vuex.Store({
         }
     }
 });
+
+const routes = [];
 
 new Vue({
     el: '#app',
