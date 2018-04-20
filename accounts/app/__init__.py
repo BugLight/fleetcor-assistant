@@ -16,12 +16,16 @@ def create_app():
     migrate = Migrate(app, db)
 
     from accounts.app.accounts import accounts
-    app.register_blueprint(accounts, url_prefix='/accounts')
+    app.register_blueprint(accounts,
+                           url_prefix=app.config['APPLICATION_ROOT'] + \
+                           '/accounts')
 
     from accounts.app.app_error import process_error
     app.register_error_handler(404, process_error)
 
     from accounts.app.bills import bills
-    app.register_blueprint(bills, url_prefix='/bills')
+    app.register_blueprint(bills,
+                           url_prefix=app.config['APPLICATION_ROOT'] + \
+                           '/bills')
 
     return app
