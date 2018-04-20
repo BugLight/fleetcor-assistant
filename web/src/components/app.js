@@ -7,7 +7,6 @@ import app_content from './app-content';
 
 export default {
     components: {
-        'app-menu-button': app_menu_button,
         'app-header': app_header,
         'app-menu': app_menu,
         'app-content': app_content
@@ -15,7 +14,6 @@ export default {
     render(h) {
         return (
             <div id="app">
-                <app-menu-button />
                 <app-header />
                 <app-menu />
                 <app-content class="app__content" />

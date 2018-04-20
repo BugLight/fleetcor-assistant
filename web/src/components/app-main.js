@@ -1,5 +1,5 @@
 export default {
     render(h) {
-        return <router-view />;
+        return <div>MAIN COMPONENT</div>;
     }
 };
