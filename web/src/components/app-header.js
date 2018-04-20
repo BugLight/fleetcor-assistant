@@ -11,7 +11,6 @@ export default {
         <app-menu-button/>
         <span class="logo">FLEETCOR</span>
         <profile-link user={this.$store.state.currentUser} />
-      </header>
-    );
+      </header>;
   }
 };
