@@ -13,7 +13,7 @@ class Account(db.Model):
 
 class Bill(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	balance = db.Column(db.Float)
+	balance = db.Column(db.Float, default=0.0)
 	account_id = db.Column(db.Integer, db.ForeignKey('account.id'))
 	account = db.relationship('Account',
 		backref=db.backref('bills', lazy=True))
