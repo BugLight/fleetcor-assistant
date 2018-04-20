@@ -18,4 +18,4 @@ def get_account(id):
     account = Account.query.get(id)
     if not account:
         abort(404)
-    return jsonify(account=schema.dump(account))
+    return jsonify(account=account_schema.dump(account))
