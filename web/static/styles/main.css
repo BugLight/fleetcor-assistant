@@ -1,0 +1,12 @@
+@font-face {
+  font-family: "Roboto";
+  src: url("/static/Roboto Condensed.ttf");
+}
+
+.header {
+  margin: 0px;
+  top: 0px;
+  position: fixed;
+  color: white;
+  z-index: 1;
+}
