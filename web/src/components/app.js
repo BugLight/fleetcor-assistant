@@ -11,18 +11,25 @@ export default {
         'app-menu': app_menu,
         'app-content': app_content
     },
+    data: function() {
+        return {
+            menuVisible: false
+        };
+    },
     render(h) {
         return (
             <div id="app">
-                <app-header />
-                <app-menu />
+                <app-header onMenuToggle={this.toggleMenu} />
+                <transition name="menu-slide">
+                    {this.menuVisible ? <app-menu /> : null}
+                </transition>
                 <app-content class="app__content" />
             </div>
         );
     },
     methods: {
-        setMenuVisible: function(show) {
-            this.menu.visible = show;
+        toggleMenu: function() {
+            this.menuVisible = !this.menuVisible;
         }
     }
 };
