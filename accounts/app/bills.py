@@ -48,12 +48,12 @@ def create_bill():
 
 
 @api_info.action('пополнить', '/bills/<id>/deposit', args=('amount',), desc='Deposit bill')
-@bills.route('/<int:id>/deposit')
+@bills.route('/<int:id>/deposit', methods=['POST'])
 def deposit_bill(id):
     if not request.is_json:
         abort(400)
     amount = int(request.json.get('amount', 0))
-    if not amount <= 0:
+    if amount <= 0:
         abort(400)
     bill = Bill.query.get(id)
     if not bill:
