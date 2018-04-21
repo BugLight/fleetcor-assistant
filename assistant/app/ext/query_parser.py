@@ -72,6 +72,21 @@ class Query(object):
     def __call__(self):
         return self.__command()
 
+    @staticmethod
+    def patch_url(url, l):
+
+        count = re.findall(r'<\w*>',url)
+        if len(l)!= len(count):
+            raise CommandArgsError()
+        else:
+            n=0
+            iterator = re.finditer(r'<\w*>',url)
+            for i in iterator:
+                m = re.search(r'(?P<name><\w*>)', url)
+                pat = m.group('name')
+                url = url.replace(pat, str(l[n]),1)
+                n+=1
+        return url
 
 def execute_query(q):
     try:
