@@ -1,5 +1,5 @@
 import requests
-
+import re
 
 class QueryParser(object):
     class __QueryParser:
@@ -53,8 +53,8 @@ class Query(object):
         api_url = QueryParser().get_api_url()
         api_actions = api.get('actions')
         api_resources = api.get('resources')
-
         cmd = q.split()[0].lower()  # First word in query
+        args = [w.lower() for w in q.split()[1:]]  # Arguments
         action = Query.find_by_name(api_actions, cmd)
         resource = Query.find_by_name(api_resources, cmd)
 
@@ -62,10 +62,16 @@ class Query(object):
             self.__command = (commands.get(cmd))(q)
         elif action:
             self.__method = action.get('method', 'POST')
-            raise NotImplemented
+            url = action.get('url')
+            self.__url = QueryParser().get_api_url() +  Query.patch_url(url, args)
+            for i, a in enumerate(action.get('args', [])):
+                if i >= len(args):
+                    raise CommandArgsError()
+                self.__data[a] = args[i]
         elif resource:
             self.__method = resource.get('method', 'GET')
-            raise NotImplemented
+            url = resource.get('url')
+            self.__url = QueryParser().get_api_url() + Query.patch_url(url, args)
         else:
             raise UnknownCommandError()
 
@@ -74,18 +80,17 @@ class Query(object):
 
     @staticmethod
     def patch_url(url, l):
-
         count = re.findall(r'<\w*>',url)
-        if len(l)!= len(count):
+        if len(l) < len(count):
             raise CommandArgsError()
         else:
-            n=0
+            n = 0
             iterator = re.finditer(r'<\w*>',url)
             for i in iterator:
                 m = re.search(r'(?P<name><\w*>)', url)
                 pat = m.group('name')
-                url = url.replace(pat, str(l[n]),1)
-                n+=1
+                url = url.replace(pat, str(l.pop(n)), 1)
+                n += 1
         return url
 
 def execute_query(q):

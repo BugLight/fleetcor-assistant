@@ -10,6 +10,14 @@ def create_app():
     prefixer = RoutesPrefixer(app, app.config['APPLICATION_ROOT'])
     parser = QueryParser(app)
 
+    from accounts.app.app_error import process_error
+    app.register_error_handler(404, process_error)
+    app.register_error_handler(400, lambda: jsonify(
+    	errors= [
+    		{code: 400}
+    	]
+    ))
+
     from assistant.app.query import query
     app.register_blueprint(query)
 
