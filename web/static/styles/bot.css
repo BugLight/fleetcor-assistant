@@ -5,7 +5,7 @@
     background-color: white;
     position: relative;
     overflow: visible;
-    margin-bottom: 60px;
+    margin-bottom: 55px;
 }
 
 .bot {
@@ -51,15 +51,22 @@
 .user_field input {
     position: absolute;
     bottom: 10px;
-    left: 9px;
-    right: 9px;
-    width: 88%;
+    left: 10px;
     height: 40px;
+    width: 80%;
     font-size: 18px;
     border: none;
     background-color: white;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.user_field img {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+    height: 40px;
+    width: 40px;
 }
 
 .rotate-arrow-enter-active,
