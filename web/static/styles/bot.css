@@ -1,41 +1,50 @@
 .back_panel {
-    height: 450px;
-    width: 360px;
+    top: 55px;
+    height: 400px;
+    width: 100%;
     background-color: white;
     position: relative;
-    border: 1px solid;
-    border-color: #ec2933;
+    overflow: visible;
+    margin-bottom: 60px;
 }
 
 .bot {
-    overflow: hidden;
+    border: 1px solid #ec2933;
     position: absolute;
+    width: 380px;
+    min-height: 60px;
     bottom: 10px;
     right: 10px;
     z-index: 1;
 }
 
 .bot_header {
-    padding-top: 10px;
+    padding-top: 12px;
     width: 100%;
     background-color: white;
     color: #ec2933;
-    height: 50px;
+    height: 60px;
     font-size: 30px;
     position: absolute;
-    box-shadow: 0 .1px 10px -6px #222;
-    z-index: 2;
+    box-shadow: 0 0.1px 10px -6px #222;
+    z-index: 1;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .bot_header img {
-    
+    margin-right: 15px;
+}
+
+.bot_header input {
+    display: none;
 }
 
 .user_field {
     position: absolute;
     bottom: 0;
     height: 60px;
-    border-top:1px solid #ccc;
+    border-top: 1px solid #ccc;
     width: 100%;
 }
 
@@ -51,4 +60,35 @@
     background-color: white;
     padding-left: 10px;
     padding-right: 10px;
+}
+
+.rotate-arrow-enter-active,
+.rotate-arrow-leave-active {
+    transition: transform 0.3s;
+}
+
+.rotate-arrow-enter,
+.rotate-arrow-leave-to {
+    transform: scale(1);
+}
+
+.rotate-arrow-enter-to,
+.rotate-arrow-leave {
+    transform: scale(-1);
+}
+
+.slide-bot-enter-active,
+.slide-bot-leave-active {
+    transition: height 0.3s;
+    overflow: hidden;
+}
+
+.slide-bot-enter,
+.slide-bot-leave-to {
+    height: 0px;
+}
+
+.slide-bot-enter-to,
+.slide-bot-leave {
+    height: 400px;
 }
