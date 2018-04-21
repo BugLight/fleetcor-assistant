@@ -12,7 +12,7 @@ json_schema = JSONSchema()
 bill_schema = BillSchema()
 
 
-@api_info.resource('/bills/<id>', schema=json_schema.dump(bill_schema),
+@api_info.resource('счет', '/bills/<id>', schema=json_schema.dump(bill_schema),
                    desc='Bill information')
 @bills.route('/<int:id>')
 def get_bill(id):
@@ -22,6 +22,7 @@ def get_bill(id):
     return jsonify(bill=bill_schema.dump(bill))
 
 
+@api_info.action('открыть', '/bills', args=('account_id',), desc='Open bill')
 @bills.route('', methods=['POST'])
 def create_bill():
     data = request.get_json()

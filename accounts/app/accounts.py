@@ -12,7 +12,7 @@ account_schema = AccountSchema()
 bill_schema = BillSchema()
 
 
-@api_info.resource('/accounts/<id>', schema=json_schema.dump(account_schema),
+@api_info.resource('аккаунт', '/accounts/<id>', schema=json_schema.dump(account_schema),
                    desc='Account information')
 @accounts.route('/<int:id>')
 def get_account(id):
@@ -22,8 +22,6 @@ def get_account(id):
     return jsonify(account=account_schema.dump(account))
 
 
-@api_info.resource('/accounts/<id>/bills', schema=json_schema.dump(bill_schema),
-                   desc='Account\'s bills list')
 @accounts.route('/<int:id>/bills')
 def get_account_bills(id):
     account = Account.query.get(id)
