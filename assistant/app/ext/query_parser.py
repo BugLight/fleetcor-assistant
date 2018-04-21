@@ -1,3 +1,5 @@
+from flask import request
+
 import requests
 import re
 
@@ -22,6 +24,11 @@ class QueryParser(object):
     def get_api(self):
         return requests.options(self.get_api_url()).json()
 
+    def request(self, method, url, data={}):
+        headers = {'Authorization': request.headers.get('Authorization')}
+        url = self.get_api_url() + url
+        requests.request(method, url, json=data, headers=headers).json()
+
 
 class UnknownCommandError(Exception):
     pass
@@ -44,8 +51,7 @@ class Query(object):
         return None
 
     def __command(self):
-        return requests.request(self.__method, self.__url,
-                                json=self.__data).json()
+        return QueryParser.request(self.__method, self.__url, data=self.__data)
 
     def __init__(self, q):
         commands = {}
@@ -63,7 +69,7 @@ class Query(object):
         elif action:
             self.__method = action.get('method', 'POST')
             url = action.get('url')
-            self.__url = QueryParser().get_api_url() +  Query.patch_url(url, args)
+            self.__url = Query.patch_url(url, args)
             for i, a in enumerate(action.get('args', [])):
                 if i >= len(args):
                     raise CommandArgsError()
@@ -71,7 +77,7 @@ class Query(object):
         elif resource:
             self.__method = resource.get('method', 'GET')
             url = resource.get('url')
-            self.__url = QueryParser().get_api_url() + Query.patch_url(url, args)
+            self.__url = Query.patch_url(url, args)
         else:
             raise UnknownCommandError()
 
