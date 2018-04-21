@@ -3,7 +3,7 @@ from accounts.app import api_info
 from marshmallow_jsonschema import JSONSchema
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from accounts.app.models import Bill, db
+from accounts.app.models import Account, Bill, db
 from accounts.app.schemas import BillSchema
 
 
@@ -21,6 +21,17 @@ def get_bill(id):
     if not bill:
         abort(404)
     return jsonify(bill=bill_schema.dump(bill))
+
+
+@bills.route('', methods=['GET'])
+@jwt_required
+def get_bills():
+    account_id = get_jwt_identity()
+    account = Account.query.get(account_id)
+    if not account:
+        abort(404)
+    bills = [{'bill': bill_schema.dump(b)} for b in account.bills]
+    return jsonify(bills=bills)
 
 
 @api_info.action('открыть', '/bills', desc='Open bill')
