@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
+import VueResource from 'vue-resource';
 
 import App from './components/app';
 import Main from './components/app-main';
@@ -9,6 +10,7 @@ import Bills from './components/app-bills';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
+Vue.use(VueResource);
 
 const routes = [
     {path: '/', component: Main},
@@ -21,7 +23,8 @@ const router = new VueRouter({routes});
 const store = new Vuex.Store({
     state: {
         currentUser: {
-            name: 'Steve'
+            name: 'Steve',
+            id: 1
         },
         menuVisible: false
     },
