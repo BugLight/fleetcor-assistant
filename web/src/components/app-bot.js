@@ -1,13 +1,27 @@
 import input from './input';
 export default {
     components: {
-        input
+        inputc: input
     },
     data: function() {
         return {
             text: '',
             messages: []
         };
+    },
+    methods: {
+        send() {
+            this.$http.get('/api/assistant/query', {
+                params: {
+                    q: this.text
+                }
+            }).then(response => {
+                return response.json();
+            }).then(data => {
+                console.log(data);
+                messages.push(data.message);
+            }).catch(console.warn);
+        }
     },
     render(h) {
         return (
@@ -41,19 +55,17 @@ export default {
                     {this.$store.state.botVisible ? (
                         <div class="back_panel">
                             <div class="user_field">
-                                <input
+                                <inputc
                                     type="text"
                                     placeholder="Введите комманду.."
-                                    onInput={() => {
-                                        this.text = this.$event.target.value;
+                                    onInput={value => {
+                                        this.text = value;
                                     }}
                                     value={this.text}
                                 />
-                                <img
-                                    style="cursor: pointer;"
-                                    src="/static/images/send.svg"
-                                    onClick={this.send}
-                                />
+                                <a style="cursor: pointer" onClick={this.send}>
+                                    <img src="/static/images/send.svg"/>
+                                </a>
                             </div>
                         </div>
                     ) : null}
