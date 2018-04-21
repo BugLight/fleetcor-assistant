@@ -27,7 +27,8 @@ const store = new Vuex.Store({
             id: 1
         },
         menuVisible: false,
-        botVisible: true
+        botVisible: true,
+        token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJuYmYiOjE1MjQyOTI0MDcsImlhdCI6MTUyNDI5MjQwNywiZnJlc2giOmZhbHNlLCJpZGVudGl0eSI6MSwidHlwZSI6ImFjY2VzcyIsImV4cCI6MTUyNDI5ODQwNywianRpIjoiNTRkZDE5NDctNzNkNC00MGIxLTkyNTAtMDg2ZGUwMWQzNmMyIn0.SK8KWQKVb6Q-M0JwScruGFdF1uZY7nmWooYrv08NM2E'
     },
     mutations: {
         toggleMenu() {
