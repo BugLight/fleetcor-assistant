@@ -4,6 +4,5 @@ from distutils.util import strtobool
 DEBUG = strtobool(os.environ.get('DEBUG', 'yes'))
 SECRET_KEY = os.environ.get('SECRET', 'defaultsecret')
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/database.db'
-
-APPLICATION_ROOT = '/api/accounts'
+APPLICATION_ROOT = '/api/assistant'
+API_URL = 'http://localhost/api/accounts/'
