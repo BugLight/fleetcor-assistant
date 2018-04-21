@@ -53,7 +53,6 @@ class Query(object):
         api_url = QueryParser().get_api_url()
         api_actions = api.get('actions')
         api_resources = api.get('resources')
-
         cmd = q.split()[0].lower()  # First word in query
         action = Query.find_by_name(api_actions, cmd)
         resource = Query.find_by_name(api_resources, cmd)
