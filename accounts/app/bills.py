@@ -23,7 +23,7 @@ def get_bill(id):
     return jsonify(bill=bill_schema.dump(bill))
 
 
-@bills.route('', methods=['GET'])
+@bills.route('/', methods=['GET'])
 @jwt_required
 def get_bills():
     account_id = get_jwt_identity()
