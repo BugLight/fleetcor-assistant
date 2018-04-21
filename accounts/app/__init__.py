@@ -1,5 +1,6 @@
 from flask import Flask
 from accounts.app.ext.api_info import ApiInfo
+from accounts.app.ext.routes_prefixer import RoutesPrefixer
 from accounts.app.models import db
 from flask_migrate import Migrate
 from werkzeug.exceptions import HTTPException
@@ -9,6 +10,8 @@ api_info = ApiInfo()
 def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('config.py')
+
+    prefixer = RoutesPrefixer(app, app.config['APPLICATION_ROOT'])
 
     api_info.init_app(app)
     db.init_app(app)
