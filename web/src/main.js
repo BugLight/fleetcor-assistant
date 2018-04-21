@@ -26,11 +26,15 @@ const store = new Vuex.Store({
             name: 'Steve',
             id: 1
         },
-        menuVisible: false
+        menuVisible: false,
+        botVisible: true
     },
     mutations: {
         toggleMenu() {
             this.state.menuVisible = !this.state.menuVisible;
+        },
+        toggleBot() {
+            this.state.botVisible = !this.state.botVisible;
         }
     }
 });
