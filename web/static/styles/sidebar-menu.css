@@ -1,0 +1,54 @@
+#sidebarMenu {
+    height: 100%;
+    position: fixed;
+    left: 0;
+    width: 250px;
+    border-right: 1px solid #ccc
+}
+
+.sidebarMenuInner {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #ccc;
+}
+
+.sidebarMenuInner li {
+    list-style: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+.sidebarMenuInner li * {
+    display: block;
+    font-size: 14px;
+    color: black;
+}
+
+.sidebarMenuInner li a {
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.menu-slide-enter-active,
+.menu-slide-leave-active {
+    transition: transform 0.3s;
+}
+
+.menu-slide-enter,
+.menu-slide-leave-to {
+    transform: translateX(-250px);
+}
+
+.menu-slide-enter-to,
+.menu-slide-leave {
+    transform: translateX(0);
+}
+
+.sidebarMenuInner li * {
+    display: block;
+}

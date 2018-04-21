@@ -1,0 +1,12 @@
+# Compiled python
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment
+env/
+*.env
+
+# Database
+*.db
