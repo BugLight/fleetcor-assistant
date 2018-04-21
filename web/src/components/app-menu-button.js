@@ -6,7 +6,6 @@ export default {
             <div>
                 <input
                     type="checkbox"
-                    class="openSidebarMenu"
                     id="openSidebarMenu"
                     onClick={() => {
                         this.$emit('menuToggle');
