@@ -1,5 +1,7 @@
-import requests
+from flask import request, abort
 
+import requests
+import re
 
 class QueryParser(object):
     class __QueryParser:
@@ -22,6 +24,15 @@ class QueryParser(object):
     def get_api(self):
         return requests.options(self.get_api_url()).json()
 
+    def request(self, method, url, data={}):
+        headers = {'Authorization': request.headers.get('Authorization')}
+        url = self.get_api_url() + url
+        try:
+            result = requests.request(method, url, json=data, headers=headers)
+            return result.json()
+        except ValueError:
+            return {'errors': []}
+
 
 class UnknownCommandError(Exception):
     pass
@@ -38,40 +49,73 @@ class Query(object):
 
     @staticmethod
     def find_by_name(l, n):
-        for value in l:
-            if value.get('name', None) == n:
-                return value
+        for key in l:
+            value = key.get('name', None)
+            pattern = re.compile(value)
+            if value == n or pattern.match(n):
+                return key
         return None
 
     def __command(self):
-        return requests.request(self.__method, self.__url,
-                                json=self.__data).json()
+        return QueryParser().request(self.__method, self.__url, data=self.__data)
+
+    def __list(self, args):
+        api = QueryParser().get_api()
+        api_resources = api.get('resources')
+        resource = Query.find_by_name(api_resources, args[0])
+        url = resource.get('url')
+        self.__url = Query.patch_url(url, [''])
+        self.__method = 'GET'
+
+        return self.__command
 
     def __init__(self, q):
-        commands = {}
+        commands = {
+            'список': self.__list,
+        }
         api = QueryParser().get_api()
         api_url = QueryParser().get_api_url()
         api_actions = api.get('actions')
         api_resources = api.get('resources')
-
         cmd = q.split()[0].lower()  # First word in query
+        args = [w.lower() for w in q.split()[1:]]  # Arguments
         action = Query.find_by_name(api_actions, cmd)
         resource = Query.find_by_name(api_resources, cmd)
 
         if cmd in commands:
-            self.__command = (commands.get(cmd))(q)
+            self.__command = (commands.get(cmd))(args)
         elif action:
             self.__method = action.get('method', 'POST')
-            raise NotImplemented
+            url = action.get('url')
+            self.__url = Query.patch_url(url, args)
+            for i, a in enumerate(action.get('args', [])):
+                if i >= len(args):
+                    raise CommandArgsError()
+                self.__data[a] = args[i]
         elif resource:
             self.__method = resource.get('method', 'GET')
-            raise NotImplemented
+            url = resource.get('url')
+            self.__url = Query.patch_url(url, args)
         else:
             raise UnknownCommandError()
 
     def __call__(self):
         return self.__command()
 
+    @staticmethod
+    def patch_url(url, l):
+        count = re.findall(r'<\w*>',url)
+        if len(l) < len(count):
+            raise CommandArgsError()
+        else:
+            n = 0
+            iterator = re.finditer(r'<\w*>',url)
+            for i in iterator:
+                m = re.search(r'(?P<name><\w*>)', url)
+                pat = m.group('name')
+                url = url.replace(pat, str(l.pop(n)), 1)
+                n += 1
+        return url
 
 def execute_query(q):
     try:
