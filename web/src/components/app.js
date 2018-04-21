@@ -1,35 +1,25 @@
 'use strict';
 
-import app_menu_button from './app-menu-button';
-import app_header from './app-header';
-import app_menu from './app-menu';
-import app_content from './app-content';
+import AppHeader from './app-header';
+import AppMenu from './app-menu';
+import AppBot from './app-bot';
 
 export default {
     components: {
-        'app-header': app_header,
-        'app-menu': app_menu,
-        'app-content': app_content
-    },
-    data: function() {
-        return {
-            menuVisible: false
-        };
+        'app-header': AppHeader,
+        'app-menu': AppMenu,
+        'app-bot': AppBot
     },
     render(h) {
         return (
             <div id="app">
-                <app-header onMenuToggle={this.toggleMenu} />
+                <app-header/>
                 <transition name="menu-slide">
-                    {this.menuVisible ? <app-menu /> : null}
+                    {this.$store.state.menuVisible ? <app-menu/> : null}
                 </transition>
-                <app-content class="app__content" />
+                <router-view/>
+                <app-bot/>
             </div>
         );
-    },
-    methods: {
-        toggleMenu: function() {
-            this.menuVisible = !this.menuVisible;
-        }
     }
 };

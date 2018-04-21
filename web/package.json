@@ -1,21 +1,21 @@
 {
-  "name": "gang-of-dezigners",
+  "name": "fleetcor-assistant",
   "version": "0.0.1",
-  "description": "Team's landing (BEST Hack'18 qualifying task)",
+  "description": "BEST Hack'18 final task",
   "scripts": {
     "build": "./node_modules/.bin/webpack --config webpack.config.js",
     "dev": "./node_modules/.bin/serve -t -l dist"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BugLight/gang-of-dezigners.git"
+    "url": "git+https://github.com/BugLight/fleetcor-assistant.git"
   },
   "author": "Gang of dezigners team",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/BugLight/gang-of-dezigners/issues"
+    "url": "https://github.com/BugLight/fleetcor-assistant/issues"
   },
-  "homepage": "https://github.com/BugLight/gang-of-dezigners#readme",
+  "homepage": "https://github.com/BugLight/fleetcor-assistant#readme",
   "devDependencies": {
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^7.1.4",
@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "vue": "^2.5.16",
+    "vue-resource": "^1.5.0",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   }
