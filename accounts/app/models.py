@@ -10,7 +10,7 @@ class Account(db.Model):
     email = db.Column(db.String(60), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
 
-    refresh_token = db.relationship('RefreshToken', backref='user',
+    refresh_token = db.relationship('RefreshToken', backref='account',
                                     uselist=False, lazy=True)
 
     def __init__(self, *args, **kwargs):
