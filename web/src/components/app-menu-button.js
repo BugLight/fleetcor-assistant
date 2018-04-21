@@ -1,5 +1,3 @@
-import app_menu from './app-menu';
-
 export default {
     render(h) {
         return (
@@ -8,7 +6,7 @@ export default {
                     type="checkbox"
                     id="openSidebarMenu"
                     onClick={() => {
-                        this.$emit('menuToggle');
+                        this.$store.commit('toggleMenu');
                     }}
                 />
                 <label for="openSidebarMenu" class="sidebarIconToggle">
