@@ -18,6 +18,9 @@ def create_app():
 
     migrate = Migrate(app, db)
 
+    from accounts.app.auth import jwt
+    jwt.init_app(app)
+
     from accounts.app.accounts import accounts
     app.register_blueprint(accounts, url_prefix='/accounts')
 
@@ -26,5 +29,8 @@ def create_app():
 
     from accounts.app.bills import bills
     app.register_blueprint(bills, url_prefix='/bills')
+
+    from accounts.app.auth import auth
+    app.register_blueprint(auth)
 
     return app
