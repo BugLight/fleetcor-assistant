@@ -45,3 +45,22 @@ def create_bill():
     return jsonify({
         'message': 'succeed'
     }), 201
+
+
+@api_info.action('пополнить', '/bills/<id>/deposit', args=('amount',), desc='Deposit bill')
+@bills.route('/<int:id>/deposit', methods=['POST'])
+def deposit_bill(id):
+    if not request.is_json:
+        abort(400)
+    amount = int(request.json.get('amount', 0))
+    if amount <= 0:
+        abort(400)
+    bill = Bill.query.get(id)
+    if not bill:
+        abort(404)
+    bill.balance += amount
+    db.session.add(bill)
+    db.session.commit()
+    return jsonify({
+        'message': 'succeed'
+    }), 201

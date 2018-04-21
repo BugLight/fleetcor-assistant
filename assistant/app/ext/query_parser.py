@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, abort
 
 import requests
 import re
@@ -27,7 +27,11 @@ class QueryParser(object):
     def request(self, method, url, data={}):
         headers = {'Authorization': request.headers.get('Authorization')}
         url = self.get_api_url() + url
-        requests.request(method, url, json=data, headers=headers).json()
+        try:
+            result = requests.request(method, url, json=data, headers=headers)
+            return result.json()
+        except ValueError:
+            return {'errors': []}
 
 
 class UnknownCommandError(Exception):
@@ -53,19 +57,14 @@ class Query(object):
         return None
 
     def __command(self):
-        return QueryParser.request(self.__method, self.__url, data=self.__data)
+        return QueryParser().request(self.__method, self.__url, data=self.__data)
 
     def __list(self, args):
-        print("ARGS===\n", args)
         api = QueryParser().get_api()
-        print("====API====\n", api)
         api_resources = api.get('resources')
-        print("RES\n", api_resources)
         resource = Query.find_by_name(api_resources, args[0])
-        print ("===RESOURCE====\n", resource)
         url = resource.get('url')
-        self.__url = QueryParser().get_api_url() + Query.patch_url(url, [''])
-        print("==URL==\n", self.__url)
+        self.__url = Query.patch_url(url, [''])
         self.__method = 'GET'
 
         return self.__command
