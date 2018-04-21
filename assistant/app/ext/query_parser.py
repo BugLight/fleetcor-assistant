@@ -45,16 +45,35 @@ class Query(object):
 
     @staticmethod
     def find_by_name(l, n):
-        for value in l:
-            if value.get('name', None) == n:
-                return value
+        for key in l:
+            value = key.get('name', None)
+            pattern = re.compile(value)
+            if value == n or pattern.match(n):
+                return key
         return None
 
     def __command(self):
         return QueryParser.request(self.__method, self.__url, data=self.__data)
 
+    def __list(self, args):
+        print("ARGS===\n", args)
+        api = QueryParser().get_api()
+        print("====API====\n", api)
+        api_resources = api.get('resources')
+        print("RES\n", api_resources)
+        resource = Query.find_by_name(api_resources, args[0])
+        print ("===RESOURCE====\n", resource)
+        url = resource.get('url')
+        self.__url = QueryParser().get_api_url() + Query.patch_url(url, [''])
+        print("==URL==\n", self.__url)
+        self.__method = 'GET'
+
+        return self.__command
+
     def __init__(self, q):
-        commands = {}
+        commands = {
+            'список': self.__list,
+        }
         api = QueryParser().get_api()
         api_url = QueryParser().get_api_url()
         api_actions = api.get('actions')
@@ -65,7 +84,7 @@ class Query(object):
         resource = Query.find_by_name(api_resources, cmd)
 
         if cmd in commands:
-            self.__command = (commands.get(cmd))(q)
+            self.__command = (commands.get(cmd))(args)
         elif action:
             self.__method = action.get('method', 'POST')
             url = action.get('url')
